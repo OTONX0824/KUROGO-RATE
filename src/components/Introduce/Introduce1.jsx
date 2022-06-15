@@ -160,6 +160,7 @@ export const Introduce1 = () => {
         SongName: SongName,
         YouTubeID: YoutubeLink,
       });
+      sendAutoEmail();
       navigation("/Rate");
     } else if (
       inName1 &&
@@ -184,7 +185,7 @@ export const Introduce1 = () => {
         SongName: SongName,
         YouTubeID: YoutubeLink,
       });
-      //メール送信→データ検索は別途行う
+      //データ更新後，10人以上集まればメール送信→データ検索は別途行う
       navigation("/Completion");
     } else {
       setload(false);
