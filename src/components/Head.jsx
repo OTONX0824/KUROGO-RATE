@@ -155,11 +155,7 @@ export const Head = () => {
                     <h5 style={{ color: "white" }}>マイページ/評価成績</h5>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/Message">
-                    <h5 style={{ color: "white" }}>メッセージ</h5>
-                  </Link>
-                </li>
+
                 <li>
                   {user ? (
                     <Link onClick={handleLogout}>
@@ -179,3 +175,10 @@ export const Head = () => {
     </div>
   );
 };
+
+//いらないやつ
+/*<li>
+                  <Link href="/Message">
+                    <h5 style={{ color: "white" }}>メッセージ</h5>
+                  </Link>
+                </li> */

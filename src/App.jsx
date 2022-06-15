@@ -25,14 +25,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<First />}></Route>
-            <Route
-              path="/Message"
-              element={
-                <PrivateRoute>
-                  <Message />
-                </PrivateRoute>
-              }
-            ></Route>
+
             <Route path="/Rate" element={<Rate />}></Route>
             <Route path="/Home" element={<Home />}></Route>
             <Route path="/Introduce" element={<Introduce1 />}></Route>
@@ -67,3 +60,12 @@ function App() {
 }
 
 export default App;
+//いらないやつ
+/*<Route
+              path="/Message"
+              element={
+                <PrivateRoute>
+                  <Message />
+                </PrivateRoute>
+              }
+            ></Route> */
