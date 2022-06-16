@@ -102,6 +102,7 @@ export const Home = () => {
             </div>
             <div>
               <Card
+                clickable
                 hoverable
                 css={{
                   height: "250px",
