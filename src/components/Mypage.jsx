@@ -295,12 +295,11 @@ export const Mypage = () => {
               </Text>
               <Spacer y={1} />
               <Card
-                hoverable
                 css={{
                   height: "220px",
                   width: "950px",
                   marginLeft: "100px",
-                  boxShadow: "6px 6px 8px",
+                  boxShadow: "4px 4px 20px",
                 }}
               >
                 <div style={{ display: "flex" }}>

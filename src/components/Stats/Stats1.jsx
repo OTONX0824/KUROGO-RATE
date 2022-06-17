@@ -13,10 +13,8 @@ import { collection, getDoc, getDocs } from "firebase/firestore";
 
 export const Stats1 = () => {
   const { db } = useContext(Ycontext);
-  const docRef = collection(db, "Rate");
-  const docrate = doc(docRef);
+
   const { Background } = useContext(Ycontext);
-  const docsnap = getDoc(docrate);
   const { user } = useAuthContext();
   //YouTubeのステート
   const [YouTID, setYouTubeID] = useState();
