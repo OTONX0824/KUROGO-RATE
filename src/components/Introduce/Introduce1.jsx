@@ -8,7 +8,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { auth } from "../../firebase";
 import { useContext } from "react";
 import { Ycontext } from "../context/Ycontext";
-import { collection, setDoc, getDocs } from "firebase/firestore";
+import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
 import { useEffect } from "react";
@@ -17,11 +17,14 @@ import { ref, getDownloadURL } from "firebase/storage";
 export const Introduce1 = () => {
   //背景等グローバルステート
   const { Background, storage } = useContext(Ycontext);
+
   //ログイン情報管理
   const { user } = useAuthContext();
 
+  //ID/パスワード用ステート
   const [Correct, setCor] = useState(false);
 
+  //モーダルOpen用ステート
   const [visible, setVisible] = useState(false);
 
   //イントロのイメージをステート管理
@@ -93,6 +96,7 @@ export const Introduce1 = () => {
     setcheck4(true);
   };
   const [load, setload] = useState(true);
+
   //参加ユーザー数の取得
   const [NumOfUser, setNumOfUser] = useState();
   const { db } = useContext(Ycontext);
@@ -117,10 +121,32 @@ export const Introduce1 = () => {
         // do something
       });
   };
-  const searchRef = collection(db, `project/project1/Songs`);
+  //プロジェクトのディスクリプション用のパス
+  const projectRef = doc(db, `project/project1`);
+  //タイトルのステート
+  const [Title1, setTitle1] = useState();
+  const [Title2, setTitle2] = useState();
+  //ディスクリプションのステート
+  const [Description11, setDescription11] = useState();
+  const [Description22, setDescription22] = useState();
+  //賞品説明のステート
+  const [Prize1, setPrize1] = useState();
+  const [Prize2, setPrize2] = useState();
+  const [Prize3, setPrize3] = useState();
+  //参加資格ステート
+  const [EntryQualification, setEntryQualification] = useState();
+  //参加条件ステート
+  const [EntryTerms, setEntryTerms] = useState();
+  //デッドラインステート
+  const [Deadline, setDeadline] = useState();
 
+  //楽曲数確認のためのパス
+  const searchRef = collection(db, `project/project1/Songs`);
+  //プロジェクトのユーザーのパス
   const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+  //プロジェクトのSongsにいれるためのパス
   const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
+
   useEffect(() => {
     getDocs(searchRef).then((data) => {
       const Docs = data.docs.length;
@@ -134,6 +160,28 @@ export const Introduce1 = () => {
       )
     ).then((url) => {
       setIntroImage(url);
+    });
+    getDoc(projectRef).then((docSnap) => {
+      const Title11 = docSnap.data().FirstTitle;
+      setTitle1(Title11);
+      const Title22 = docSnap.data().SecondTitle;
+      setTitle2(Title22);
+      const Description111 = docSnap.data().Description1;
+      setDescription11(Description111);
+      const Description222 = docSnap.data().Description2;
+      setDescription22(Description222);
+      const Prize11 = docSnap.data().Prize1st;
+      setPrize1(Prize11);
+      const Prize22 = docSnap.data().Prize2nd;
+      setPrize2(Prize22);
+      const Prize33 = docSnap.data().Prize3rd;
+      setPrize3(Prize33);
+      const EntryQualification11 = docSnap.data().EntryQualification;
+      setEntryQualification(EntryQualification11);
+      const EntryTerms11 = docSnap.data().EntryTerms;
+      setEntryTerms(EntryTerms11);
+      const Deadline1 = docSnap.data().DeadLine;
+      setDeadline(Deadline1);
     });
   }, []);
   const AllCheck = () => {
@@ -457,17 +505,27 @@ export const Introduce1 = () => {
             >
               <Text
                 h1
-                size={40}
+                size={50}
                 css={{
                   marginLeft: "50px",
+                  textGradient: "45deg, $blue500 -20%, $pink500 50%",
+                }}
+                color="#ff4ecd"
+                weight="bold"
+              >
+                {Title1}
+              </Text>
+              <Text
+                h2
+                size={35}
+                css={{
+                  marginLeft: "50px",
+                  marginTop: "-10px",
                 }}
                 color="white"
                 weight="bold"
               >
-                TO BE THE STAR プロジェクト
-                <br />
-                <span style={{ color: "red" }}>豪華特典</span>
-                がついてくる！
+                {Title2}
               </Text>
             </div>
             <div style={{ marginTop: "80px", marginLeft: "80px" }}>
@@ -486,12 +544,12 @@ export const Introduce1 = () => {
                 h1
                 size={20}
                 css={{
-                  marginLeft: "50px",
+                  marginLeft: "10px",
                 }}
                 color="white"
                 weight="bold"
               >
-                参加期間　22/5/5〜<span style={{ color: "red" }}>22/6/5</span>
+                参加期間　{Deadline}
               </Text>
             </div>
           </div>
@@ -535,12 +593,9 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              TO BE THE STAR プロジェクトがついに始動！
+              {Description11}
               <br />
-              <span style={{ color: "red" }}>豪華特典</span>
-              がついてくる！
-              <br />
-              しかも，5/23までの参加なら特注ステッカーがゲットできる！
+              {Description22}
             </Text>
           </div>
           <div style={{ marginTop: "40px" }}>
@@ -566,7 +621,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              1st　ゴールドカード＆協賛プラグイン
+              1st　{Prize1}
             </Text>
             <Text
               h1
@@ -578,7 +633,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              2nd　シルバーカード＆協賛プラグイン
+              2nd　{Prize2}
             </Text>
             <Text
               h1
@@ -590,7 +645,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              3rd　ブロンズカード
+              3rd　{Prize3}
             </Text>
           </div>
           <div style={{ marginTop: "50px" }}>
@@ -616,7 +671,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              作詞，作曲，歌唱を一人だけで行っているシンガーソングライター
+              {EntryQualification}
             </Text>
             <Text
               h1
@@ -640,8 +695,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              参加している他アーティストの楽曲を
-              <span style={{ color: "red" }}>5回以上</span>評価
+              {EntryTerms}
             </Text>
           </div>
           <div style={{ marginTop: "50px" }}>
@@ -655,7 +709,7 @@ export const Introduce1 = () => {
               color="#ff4ecd"
               weight="bold"
             >
-              スケジュール
+              スケジュール/締め切り
             </Text>
             <Text
               h1
@@ -667,31 +721,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              5/5~6/1 　参加＆評価期間
-            </Text>
-            <Text
-              h1
-              size={20}
-              css={{
-                marginLeft: "400px",
-                marginTop: "20px",
-              }}
-              color="white"
-              weight="bold"
-            >
-              6/2~6/4 　集計
-            </Text>
-            <Text
-              h1
-              size={20}
-              css={{
-                marginLeft: "400px",
-                marginTop: "20px",
-              }}
-              color="white"
-              weight="bold"
-            >
-              6/5 　　　結果発表
+              {Deadline} 　参加＆評価期間
             </Text>
           </div>
           <div style={{ marginTop: "20px", marginLeft: "400px" }}>
