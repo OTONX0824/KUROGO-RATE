@@ -534,10 +534,10 @@ export const Introduce1 = () => {
               </Text>
               <Text
                 h2
-                size={35}
+                size={30}
                 css={{
                   marginLeft: "50px",
-                  marginTop: "-10px",
+                  marginTop: "0px",
                 }}
                 color="white"
                 weight="bold"
