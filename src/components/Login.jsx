@@ -13,28 +13,34 @@ import { Footer } from "./Footer";
 
 const Login = () => {
   const { Background } = useContext(Ycontext);
+  //入力されたメールアドレスのステート保持化
   const [mail1, setmail] = useState();
   const sendEmail = (event) => {
     setmail(event.target.value);
   };
+  //パスワードのステート保持化
   const [password1, setPassword] = useState();
   const Sendpassword = (event) => {
     setPassword(event.target.value);
   };
+  //モーダル表示用ステート
   const [visible, setVisible] = useState(false);
   const closeHandler = () => {
     setVisible(false);
   };
+
   const navigation = useNavigate();
   const { user } = useAuthContext();
   const handleSubmit = (event) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(mail1, password1);
-    if (user) {
-      navigation("/Introduce");
-    } else if (!user) {
-      setVisible(true);
-    }
+    auth
+      .signInWithEmailAndPassword(mail1, password1)
+      .then(() => {
+        navigation("/Introduce");
+      })
+      .catch(() => {
+        setVisible(true);
+      });
   };
 
   return (
