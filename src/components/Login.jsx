@@ -62,7 +62,9 @@ const Login = () => {
         </Modal.Header>
         <Modal.Body>
           <Text id="modal-title" size={20} color="white">
-            メールアドレスあるいはパスワードが間違っています。
+            メールアドレスあるいはパスワードが
+            <br />
+            間違っています。
           </Text>
         </Modal.Body>
         <Modal.Footer>
