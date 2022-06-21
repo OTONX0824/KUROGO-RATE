@@ -30,7 +30,9 @@ const Login = () => {
   };
 
   const navigation = useNavigate();
+  //ユーザー情報
   const { user } = useAuthContext();
+  //ログイン時挙動
   const handleSubmit = (event) => {
     event.preventDefault();
     auth

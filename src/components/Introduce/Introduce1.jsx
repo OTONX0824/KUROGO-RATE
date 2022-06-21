@@ -41,13 +41,15 @@ export const Introduce1 = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(mail1, password1);
-    if (user) {
-      setCor(false);
-      navigation("/Introduce");
-    } else if (!user) {
-      setCor(true);
-    }
+    auth
+      .signInWithEmailAndPassword(mail1, password1)
+      .then(() => {
+        setCor(false);
+        navigation("/Introduce");
+      })
+      .catch(() => {
+        setCor(true);
+      });
   };
 
   const onClickSwitch = () => {
@@ -142,11 +144,7 @@ export const Introduce1 = () => {
 
   //楽曲数確認のためのパス
   const searchRef = collection(db, `project/project1/Songs`);
-  //プロジェクトのユーザーのパス
-  const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
-  //プロジェクトのSongsにいれるためのパス
-  const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
-
+  //楽曲を読み込み時に把握し，イントロの画像やタイトル等を反映させる
   useEffect(() => {
     getDocs(searchRef).then((data) => {
       const Docs = data.docs.length;
@@ -196,12 +194,16 @@ export const Introduce1 = () => {
       NumOfUser >= 9
     ) {
       setload(true);
+      //プロジェクトのユーザーのパス
+      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
         SongName: SongName,
         YouTubeID: YoutubeLink,
       });
+      //プロジェクトのSongsにいれるためのパス
+      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -221,12 +223,16 @@ export const Introduce1 = () => {
       NumOfUser <= 8
     ) {
       setload(true);
+      //プロジェクトのユーザーのパス
+      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
         SongName: SongName,
         YouTubeID: YoutubeLink,
       });
+      //プロジェクトのSongsにいれるためのパス
+      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
