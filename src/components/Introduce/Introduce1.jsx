@@ -4,6 +4,7 @@ import { NextUIProvider, Button, Text, Checkbox } from "@nextui-org/react";
 import { Head } from "../Head";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Footer } from "../Footer";
 import { useAuthContext } from "../context/AuthContext";
 import { auth } from "../../firebase";
 import { useContext } from "react";
@@ -752,6 +753,9 @@ export const Introduce1 = () => {
               参加する
             </Button>
           </div>
+        </div>
+        <div style={{ marginTop: "200px" }}>
+          <Footer />
         </div>
       </NextUIProvider>
     </>
