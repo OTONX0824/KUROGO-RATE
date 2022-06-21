@@ -13,7 +13,6 @@ import { collection, getDoc, getDocs } from "firebase/firestore";
 
 export const Stats1 = () => {
   const { db } = useContext(Ycontext);
-
   const { Background } = useContext(Ycontext);
   const { user } = useAuthContext();
   //YouTubeのステート
@@ -117,7 +116,7 @@ export const Stats1 = () => {
       setRate5(Rate5OfArray.length);
     });
   }, []);
-
+  //円グラフ用関数等
   ChartJS.register(ArcElement, Tooltip, Legend);
   const data = {
     labels: ["1:悪い", "2:改善の余地あり", "3:普通", "4:良い", "5:非常に良い"],
@@ -143,7 +142,7 @@ export const Stats1 = () => {
       },
     ],
   };
-
+  //YouTubeのcss
   const ops = {
     id: "player",
     width: "300",

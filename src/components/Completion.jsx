@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const Completion = () => {
   const { Background } = useContext(Ycontext);
   const navigation = useNavigate();
-  
 
   const onBacktoHome = () => {
     navigation("/Home");

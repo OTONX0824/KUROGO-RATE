@@ -38,7 +38,7 @@ export const Introduce1 = () => {
   };
   //ナビゲーション
   const navigation = useNavigate();
-
+  //イントロからのログイン挙動
   const handleSubmit = (event) => {
     event.preventDefault();
     auth
@@ -51,36 +51,45 @@ export const Introduce1 = () => {
         setCor(true);
       });
   };
-
+  //モーダルの挙動
   const onClickSwitch = () => {
     setVisible(true);
   };
+  //ログイン用メールアドレス
   const [mail1, setmail] = useState();
   const sendEmail = (event) => {
     setmail(event.target.value);
   };
+  //ログイン用パスワード
   const [password1, setPassword] = useState();
   const Sendpassword = (event) => {
     setPassword(event.target.value);
   };
+  //プロジェクト参加の際のアーティスト名が抜けたかどうかの判定用ステート
   const [inName1, setName1] = useState(false);
+  //アーティスト名のステート
   const [Aname, setAname] = useState();
   const onsetName1 = (event) => {
     setName1(true);
     setAname(event.target.value);
   };
+  //プロジェクト参加時の楽曲名が抜けたかどうかの判定用ステート
   const [inName2, setName2] = useState(false);
+  //楽曲名のステート
   const [SongName, setSongName] = useState();
   const onsetName2 = (event) => {
     setName2(true);
     setSongName(event.target.value);
   };
+  //プロジェクト参加時のYouTubeのリンクが抜けたかどうかの判定用ステート
   const [inName3, setName3] = useState(false);
+  //YouTubeのリンクのステート
   const [YoutubeLink, setYoutubeLink] = useState();
   const onsetYouTube = (event) => {
     setName3(true);
     setYoutubeLink(event.target.value.substr(-11));
   };
+  //チェックボックス用ステート
   const [incheck1, setcheck1] = useState(false);
   const check1 = (event) => {
     setcheck1(true);
@@ -97,6 +106,8 @@ export const Introduce1 = () => {
   const check4 = (event) => {
     setcheck4(true);
   };
+
+  //入力に誤りがあるかどうかの判定用ステート
   const [load, setload] = useState(true);
 
   //参加ユーザー数の取得

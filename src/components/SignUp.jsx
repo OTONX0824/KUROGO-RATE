@@ -13,19 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const Navigate = useNavigate();
-  const { Background, storage } = useContext(Ycontext);
-
-  /*const [preImage, setpreImage] = useState();
-  //初期イメージのダウンロード
-  useEffect(() => {
-    getDownloadURL(
-      storage,
-      "gs://kurogo-f196b.appspot.com/ArtistImage/unknown/unknown.png"
-    ).then((url) => {
-      setpreImage(url);
-    });
-  }, []);*/
-
+  const { Background } = useContext(Ycontext);
   const [mail1, setmail] = useState();
   const sendEmail = (event) => {
     setmail(event.target.value);
