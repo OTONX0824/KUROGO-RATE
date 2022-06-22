@@ -73,7 +73,7 @@ const Login = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div style={{ marginTop: "40px", marginLeft: "500px", width: "400px" }}>
+      <div style={{ marginTop: "100px", marginLeft: "600px", width: "400px" }}>
         <h1 style={{}}>ログイン</h1>
         <form>
           <div style={{ marginTop: "10px" }}>
@@ -130,7 +130,7 @@ const Login = () => {
           </div>
         </form>
       </div>
-      <div style={{ marginTop: "460px" }}>
+      <div style={{ marginTop: "400px" }}>
         <Footer />
       </div>
     </NextUIProvider>

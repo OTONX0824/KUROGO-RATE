@@ -147,7 +147,7 @@ export const Head = () => {
                 style={{
                   width: "170px",
                   marginTop: "20px",
-                  marginLeft: "1000px",
+                  marginLeft: "1050px",
                 }}
               >
                 <li>

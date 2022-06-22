@@ -590,23 +590,13 @@ export const Introduce1 = () => {
             <Spacer y={1} />
           </div>
 
-          <div style={{ marginTop: "20px", marginLeft: "1250px" }}>
-            <Button
-              bordered
-              color="gradient"
-              auto
-              css={{ width: "150px", height: "50px" }}
-              onClick={onClickSwitch}
-            >
-              参加する
-            </Button>
-          </div>
           <div>
             <Text
               h1
               size={20}
               css={{
                 marginLeft: "400px",
+                marginTop: "15px",
               }}
               color="white"
               weight="bold"

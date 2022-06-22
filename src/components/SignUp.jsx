@@ -32,7 +32,7 @@ export const SignUp = () => {
   return (
     <NextUIProvider theme={Background}>
       <Head />
-      <div style={{ marginTop: "100px", marginLeft: "500px", width: "400px" }}>
+      <div style={{ marginTop: "100px", marginLeft: "600px", width: "400px" }}>
         <h1>新規登録</h1>
         <form>
           <div style={{ marginTop: "10px" }}>
