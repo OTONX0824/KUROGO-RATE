@@ -68,6 +68,7 @@ export const Mypage = () => {
   const ChangeUserMail = (event) => {
     setUMail(event.target.value);
   };
+  const [UserImage, setUI] = useState();
 
   //アーティスト写真のステート
   const [DisplayImage, setDisplayImage] = useState();
@@ -75,7 +76,7 @@ export const Mypage = () => {
   const [ProjectImage1, setProjectImage1] = useState();
 
   const ChangeUserImage = (event) => {
-    setDisplayImage(event.target.files[0]);
+    setUI(event.target.files[0]);
   };
   const ArtistImageRef = ref(storage, `ArtistImage/${user.uid}`);
   const ChangeInfo = () => {
@@ -95,8 +96,8 @@ export const Mypage = () => {
       console.log("ユーザー名未記入");
     }
     //ユーザーのイメージを変更する
-    if (DisplayImage) {
-      uploadBytes(ArtistImageRef, DisplayImage).then(() => {
+    if (UserImage) {
+      uploadBytes(ArtistImageRef, UserImage).then(() => {
         console.log("アップロード完了");
       });
     } else {
