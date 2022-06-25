@@ -68,16 +68,21 @@ export const Mypage = () => {
   const ChangeUserMail = (event) => {
     setUMail(event.target.value);
   };
+  //入力用画像ステート
   const [UserImage, setUI] = useState();
+  //モーダル表示用画像ステート
+  const [ForModalDisplay, setForModalDisplay] = useState();
 
   //アーティスト写真のステート
   const [DisplayImage, setDisplayImage] = useState();
   //プロジェクトの小出しイメージのステート管理
   const [ProjectImage1, setProjectImage1] = useState();
-
+  //ユーザー画像ステート変更と，モーダル表示用画像の変更
   const ChangeUserImage = (event) => {
     setUI(event.target.files[0]);
+    setForModalDisplay(event.target.files[0]);
   };
+  //アーティスト画像参照
   const ArtistImageRef = ref(storage, `ArtistImage/${user.uid}`);
   const ChangeInfo = () => {
     //メールアドレスが入力されていた場合にfirebaseごとアップデートする
@@ -113,6 +118,7 @@ export const Mypage = () => {
     )
       .then((url) => {
         setDisplayImage(url);
+        setForModalDisplay(url);
       })
       .catch((error) => {
         getDownloadURL(
@@ -122,6 +128,7 @@ export const Mypage = () => {
           )
         ).then((url) => {
           setDisplayImage(url);
+          setForModalDisplay(url);
         });
       });
     //ユーザーネーム
@@ -161,7 +168,7 @@ export const Mypage = () => {
           </Modal.Header>
           <Modal.Body>
             <img
-              src={DisplayImage}
+              src={ForModalDisplay}
               style={{
                 width: "150px",
                 height: "150px",
