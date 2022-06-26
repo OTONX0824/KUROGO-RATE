@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useEffect, useContext } from "react";
 import { Ycontext } from "./context/Ycontext";
-import Unknown from "../Images/unknown.png";
 import { Link } from "@nextui-org/react";
 import { useState } from "react";
 import { useAuthContext } from "./context/AuthContext";
