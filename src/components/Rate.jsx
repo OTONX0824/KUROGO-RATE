@@ -369,7 +369,7 @@ export const Rate = () => {
                 >
                   <ReactStars
                     half={false}
-                    aria-label="text"
+                    aria-label="number"
                     count={5}
                     size={90}
                     value={Star}
