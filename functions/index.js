@@ -89,7 +89,7 @@ exports.test = functions.firestore
 
     });
 
-exports.putTopTenData = functions.pubsub.schedule('every 24 hours').onRun(async(_) => {
+exports.everyProjectRankingUpdate = functions.pubsub.schedule('every 24 hours').onRun(async(_) => {
     console.log('----------------start function--------------------')
 
 
