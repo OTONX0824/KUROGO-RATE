@@ -39,6 +39,9 @@ export const Stats1 = () => {
   const [Rate4, setRate4] = useState();
   const [Rate5, setRate5] = useState();
 
+  //平均値のステート
+  const [AverageRate, setAverageRate] = useState();
+
   //YouTubeの参照先
   const YTRef = doc(db, `/project/project1/Songs/${user.uid}`);
 
@@ -47,6 +50,10 @@ export const Stats1 = () => {
     db,
     `/project/project1/JoinUser/${user.uid}/RecieveRating`
   );
+
+  //平均値の参照先
+  const AverageRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+
   useEffect(() => {
     getDoc(YTRef).then((docsnap) => {
       const YTID = docsnap.data().YouTubeID;
@@ -114,6 +121,10 @@ export const Stats1 = () => {
       setRate4(Rate4OfArray.length);
       const Rate5OfArray = RateArray.filter((value) => value === 5);
       setRate5(Rate5OfArray.length);
+    });
+    getDoc(AverageRef).then((docSnap) => {
+      const Averages = docSnap.data().averageRate;
+      setAverageRate(Averages.toFixed(1));
     });
   }, []);
   //円グラフ用関数等
@@ -259,15 +270,14 @@ export const Stats1 = () => {
               >
                 <div
                   style={{
-                    width: "200px",
+                    width: "300px",
                     display: "flex",
-                    borderBottom: "1px solid white",
                   }}
                 >
                   <div style={{ marginTop: "50px" }}>
-                    <h3>スコア</h3>
+                    <h3>スコア(平均値)</h3>
                   </div>
-                  <div style={{}}>
+                  <div>
                     <Text
                       h1
                       size={40}
@@ -279,45 +289,26 @@ export const Stats1 = () => {
                       color="#ff4ecd"
                       weight="bold"
                     >
-                      4.0
+                      {AverageRate}
                     </Text>
                   </div>
                 </div>
                 <div
                   style={{
-                    width: "250px",
+                    width: "270px",
                     display: "flex",
-                    borderBottom: "1px solid white",
+                    borderBottom: "2px solid white",
                   }}
-                >
-                  <div style={{ marginTop: "20px" }}>
-                    <h3>平均</h3>
-                  </div>
-                  <div style={{}}>
-                    <Text
-                      h1
-                      size={40}
-                      css={{
-                        marginTop: "5px",
-                        marginLeft: "50px",
-                        textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                      }}
-                      color="#ff4ecd"
-                      weight="bold"
-                    >
-                      3.0
-                    </Text>
-                  </div>
-                </div>
+                ></div>
                 <div
                   style={{
                     width: "300px",
                     display: "flex",
-                    borderBottom: "1px solid white",
+                    borderBottom: "2px solid white",
                   }}
                 >
                   <div style={{ marginTop: "20px" }}>
-                    <h3>順位</h3>
+                    <h3>総合順位</h3>
                   </div>
                   <div>
                     <Text
