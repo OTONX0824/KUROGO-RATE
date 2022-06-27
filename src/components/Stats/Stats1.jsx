@@ -45,11 +45,17 @@ export const Stats1 = () => {
   const [Rate4, setRate4] = useState();
   const [Rate5, setRate5] = useState();
 
+  //参加者数のステート
+  const [NumOfJoinUser, setNumOfJoinUser] = useState();
+
   //平均値のステート
   const [AverageRate, setAverageRate] = useState();
 
   //YouTubeの参照先
   const YTRef = doc(db, `/project/project1/Songs/${user.uid}`);
+
+  //参加者数割り出し用参照先
+  const JoinUsers = collection(db, `/project/project1/JoinUser`);
 
   //RecieveRef
   const RecieveRef = collection(
@@ -58,9 +64,17 @@ export const Stats1 = () => {
   );
 
   //平均値の参照先
-  const AverageRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+  const AverageAndRankingRef = doc(
+    db,
+    `/project/project1/JoinUser/${user.uid}`
+  );
 
   useEffect(() => {
+    //参加者数割り出し
+    getDocs(JoinUsers).then((data) => {
+      setNumOfJoinUser(data.docs.length);
+    });
+    //YouTube，アーティスト名,曲名の割り出し
     getDoc(YTRef).then((docsnap) => {
       const YTID = docsnap.data().YouTubeID;
       setYouTubeID(YTID);
@@ -69,6 +83,7 @@ export const Stats1 = () => {
       const getSname = docsnap.data().SongName;
       setSname(getSname);
     });
+    //コメント及びレートを降順に取得→円グラフとコメント欄に反映
     getDocs(query(RecieveRef, orderBy("Rate", "desc"))).then((data) => {
       const docs = data.docs;
       //コメントの数
@@ -129,7 +144,8 @@ export const Stats1 = () => {
       const Rate5OfArray = RateArray.filter((value) => value === 5);
       setRate5(Rate5OfArray.length);
     });
-    getDoc(AverageRef).then((docSnap) => {
+    //平均値(これから順位も)の割り出し
+    getDoc(AverageAndRankingRef).then((docSnap) => {
       const Averages = docSnap.data().averageRate;
       setAverageRate(Averages.toFixed(1));
     });
@@ -242,7 +258,9 @@ export const Stats1 = () => {
                   disabled={true}
                   css={{ width: "300px", height: "150px", marginLeft: "-50px" }}
                 >
-                  <h2>第１位</h2>
+                  <h2>
+                    第<span style={{ color: "red" }}>１</span>位
+                  </h2>
                 </Button>
               </div>
             </div>
@@ -329,7 +347,7 @@ export const Stats1 = () => {
                       color="#ff4ecd"
                       weight="bold"
                     >
-                      1位 /400
+                      1位 /{NumOfJoinUser}
                     </Text>
                   </div>
                 </div>
