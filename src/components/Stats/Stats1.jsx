@@ -9,7 +9,13 @@ import { doc } from "firebase/firestore";
 import { useAuthContext, user } from "../context/AuthContext";
 import { auth } from "../../firebase";
 import YouTube from "react-youtube";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 
 export const Stats1 = () => {
   const { db } = useContext(Ycontext);
@@ -63,7 +69,7 @@ export const Stats1 = () => {
       const getSname = docsnap.data().SongName;
       setSname(getSname);
     });
-    getDocs(RecieveRef).then((data) => {
+    getDocs(query(RecieveRef, orderBy("Rate", "desc"))).then((data) => {
       const docs = data.docs;
       //コメントの数
       const comment1 = docs[0].data().Comment;
@@ -110,6 +116,7 @@ export const Stats1 = () => {
         Rate_9,
         Rate_10,
       ];
+
       //ユーザーが取得したレートがいくつあるのかを取得し，ステート保持
       const Rate1OfArray = RateArray.filter((value) => value === 1);
       setRate1(Rate1OfArray.length);
