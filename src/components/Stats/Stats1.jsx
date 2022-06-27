@@ -6,8 +6,7 @@ import { Ycontext } from "../context/Ycontext";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { doc } from "firebase/firestore";
-import { useAuthContext, user } from "../context/AuthContext";
-import { auth } from "../../firebase";
+import { useAuthContext } from "../context/AuthContext";
 import YouTube from "react-youtube";
 import {
   collection,
