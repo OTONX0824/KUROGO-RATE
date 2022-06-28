@@ -35,7 +35,7 @@ export const First = () => {
               KUROGO-RATEとは？
             </h2>
           </div>
-          <div style={{ marginLeft: "200px", marginTop: "-50px" }}>
+          <div style={{ marginLeft: "150px", marginTop: "-50px" }}>
             <img
               style={{
                 width: "1200px",
