@@ -1,20 +1,30 @@
 import { Head } from "./Head";
-
 import { Card, Text } from "@nextui-org/react";
-import { NextUIProvider, Collapse, Spacer } from "@nextui-org/react";
-import { useContext } from "react";
+import { NextUIProvider, Spacer } from "@nextui-org/react";
+import { useContext, useEffect, useState } from "react";
 import { Ycontext } from "./context/Ycontext";
 import { Footer } from "./Footer";
+import { ref, getDownloadURL } from "firebase/storage";
 
 export const First = () => {
-  const { Background } = useContext(Ycontext);
+  //グローバルステートからのprops引継ぎ
+  const { Background, storage } = useContext(Ycontext);
+  const [NetWorkImageForLP, setNetWorkImageForLP] = useState();
+
+  useEffect(() => {
+    getDownloadURL(
+      ref(storage, "gs://kurogo-f196b.appspot.com/LP/NetworkForLP.png")
+    ).then((url) => {
+      setNetWorkImageForLP(url);
+    });
+  }, []);
   return (
     <>
       <NextUIProvider theme={Background}>
-      <Head />
+        <Head />
         <div className="all" style={{ height: "1600px" }}>
           <div
-            style={{ width: "400px", marginLeft: "100px", marginTop: "50px" }}
+            style={{ width: "400px", marginLeft: "100px", marginTop: "30px" }}
           >
             <h2
               style={{
@@ -25,19 +35,36 @@ export const First = () => {
               KUROGO-RATEとは？
             </h2>
           </div>
-          <div style={{ marginLeft: "400px", marginTop: "50px" }}>
-            <h3>
+          <div style={{ marginLeft: "200px", marginTop: "-50px" }}>
+            <img
+              style={{
+                width: "1200px",
+                height: "auto",
+              }}
+              src={NetWorkImageForLP}
+            />
+          </div>
+          <div style={{ marginLeft: "100px", marginTop: "0px" }}>
+            <h4>
+              KUROGO-RATEは，
               <span style={{ color: "red" }}>参加アーティスト同士の評価</span>
-              を基準とした新しい形のコンテスト
-            </h3>
-            <div>ここに画像</div>
+              を基準とした新しい形のコンテストです。
+            </h4>
+            <h4>
+              従来的なコンテストにみられる小人数の審査員による評価 ではなく，
+              <span style={{ color: "red" }}>相互的な評価の連鎖</span>
+              によってより客観的な評価が行われます。
+            </h4>
+            <h4>
+              それだけでなく，マイページから詳細な評価データを確認することができ，今後の活動に有効なフィードバックを受けることができます。
+            </h4>
           </div>
           <div>
             <div
               style={{
                 width: "150px",
                 marginLeft: "100px",
-                marginTop: "400px",
+                marginTop: "100px",
               }}
             >
               <h2
@@ -165,7 +192,7 @@ export const First = () => {
                       >
                         「参加する」ボタンから，各種要件を確認後，楽曲のYouTubeリンクを
                         <br />
-                        アップロードして，締め切りを待とう！
+                        アップロードしよう！
                       </Text>
                     </div>
                   </div>
@@ -219,7 +246,7 @@ export const First = () => {
                         color="white"
                         weight="bold"
                       >
-                        締め切り後，他のアーティストの楽曲を評価しよう！！
+                        他のアーティストの楽曲を評価しよう！！
                       </Text>
                       <Text
                         h1
@@ -230,7 +257,7 @@ export const First = () => {
                         color="white"
                         weight="bold"
                       >
-                        「ここが良い！」など具体的なコメントがあるとGOOD！
+                        「〇〇が良い！」など具体的なコメントがあるとGOOD！
                         <br />
                       </Text>
                     </div>
@@ -307,7 +334,9 @@ export const First = () => {
             </div>
           </div>
         </div>
-        <Footer />
+        <div style={{ marginTop: "400px" }}>
+          <Footer />
+        </div>
       </NextUIProvider>
     </>
   );
