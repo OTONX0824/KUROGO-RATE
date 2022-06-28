@@ -13,7 +13,6 @@ export const FAQ = () => {
         <Head />
         <div
           style={{
-            textShadow: "1px 1px 4px",
             marginTop: "10px",
             marginLeft: "400px",
           }}
