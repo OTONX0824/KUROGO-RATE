@@ -21,17 +21,7 @@ export const FAQ = () => {
         </div>
         <div style={{ marginTop: "10px", marginLeft: "500px", width: "800px" }}>
           <Collapse title="Q1. プロジェクト参加は有料ですか？">
-            <Text
-              h1
-              size={20}
-              css={
-                {
-                  //textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                }
-              }
-              color="white" //"#ff4ecd"
-              weight="bold"
-            >
+            <Text h1 size={20} color="white" weight="bold">
               <span style={{ color: "red" }}>A1.　</span>
               プロジェクト参加には
               <span style={{ color: "red" }}>一切料金はかかりません。</span>
@@ -43,17 +33,7 @@ export const FAQ = () => {
           </Collapse>
 
           <Collapse title="Q2. アップロードする楽曲URLは何でも良いですか？">
-            <Text
-              h1
-              size={20}
-              css={
-                {
-                  //textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                }
-              }
-              color="white" //"#ff4ecd"
-              weight="bold"
-            >
+            <Text h1 size={20} color="white" weight="bold">
               <span style={{ color: "red" }}>A2.　</span>
               アップロードできるのは
               <span style={{ color: "red" }}>YouTubeリンク</span>
@@ -64,17 +44,7 @@ export const FAQ = () => {
           </Collapse>
 
           <Collapse title="Q3. 途中でリタイアはできますか？">
-            <Text
-              h1
-              size={20}
-              css={
-                {
-                  //textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                }
-              }
-              color="white" //"#ff4ecd"
-              weight="bold"
-            >
+            <Text h1 size={20} color="white" weight="bold">
               <span style={{ color: "red" }}>A3.　</span>
               申し訳ございません。一度プロジェクト参加に参加した場合，
               <br />
@@ -84,17 +54,7 @@ export const FAQ = () => {
             </Text>
           </Collapse>
           <Collapse title="Q4. 結果や副賞はどのように受け取れば良いですか？">
-            <Text
-              h1
-              size={20}
-              css={
-                {
-                  //textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                }
-              }
-              color="white" //"#ff4ecd"
-              weight="bold"
-            >
+            <Text h1 size={20} color="white" weight="bold">
               <span style={{ color: "red" }}>A4.　</span>
               <span style={{ color: "red" }}>
                 アカウント登録時のメールアドレス
