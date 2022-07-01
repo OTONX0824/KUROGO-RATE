@@ -13,7 +13,7 @@ export const First = () => {
 
   useEffect(() => {
     getDownloadURL(
-      ref(storage, "gs://kurogo-f196b.appspot.com/LP/NetworkForLP.png")
+      ref(storage, "gs://kurogo-f196b.appspot.com/LP/Network.png")
     ).then((url) => {
       setNetWorkImageForLP(url);
     });
