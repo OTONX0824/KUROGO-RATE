@@ -1,6 +1,6 @@
 import { Head } from "./Head";
 import { Text } from "@nextui-org/react";
-import { NextUIProvider, Collapse } from "@nextui-org/react";
+import { NextUIProvider, Collapse, Link } from "@nextui-org/react";
 import { useContext } from "react";
 import { Ycontext } from "./context/Ycontext";
 import { Footer } from "./Footer";
@@ -66,6 +66,17 @@ export const FAQ = () => {
               　　メールアドレスが間違っていたり，メールが届いていないという場合は，
               <br />
               　　運営へご連絡をお願いいたします。
+            </Text>
+          </Collapse>
+          <Collapse title="Q5. プロジェクトを開催したいのですがどうすれば良いですか？">
+            <Text h1 size={20} color="white" weight="bold">
+              <span style={{ color: "red" }}>A5.　</span>
+              <Link href="/Support" underline>
+                <h4 style={{ color: "red" }}>お問い合わせ</h4>
+              </Link>
+              に記載のメールアドレスにお名前，プロジェクト内容，ご連絡先を
+              <br />
+              　　明記した上でお問い合わせください。運営チームが早急にご対応いたします。
             </Text>
           </Collapse>
         </div>
