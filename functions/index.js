@@ -6,7 +6,7 @@ const {
 admin.initializeApp();
 
 
-exports.secontTest = functions.region('asia-northeast1').firestore
+exports.secondTest = functions.region('asia-northeast1').firestore
     .document('test/{testId}')
     .onCreate(async(_, __) => {
         console.log('----------------start function--------------------')
