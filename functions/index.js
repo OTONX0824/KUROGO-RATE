@@ -63,11 +63,13 @@ exports.secondTest = functions.region('asia-northeast1').firestore
         async function resetRanking(project) {
             var users = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').get();
             users.docs.forEach(async(user) => {
-                await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
-                    'rank': null
-                }, {
-                    merge: true
-                });
+                if (user.data().hasOwnProperty('rank')) {
+                    await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
+                        'rank': null
+                    }, {
+                        merge: true
+                    });
+                }
             });
         }
 
@@ -86,7 +88,7 @@ exports.secondTest = functions.region('asia-northeast1').firestore
                     baseRate = baseUser.docs[baseUser.docs.length - 1].data().averageRate ? baseUser.docs[baseUser.docs.length - 1].data().averageRate : 0;
                     const rankTieUsers = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').where('averageRate', '==', baseRate).get();
                     rankTieUsers.forEach(async(user) => {
-                        if (user.hasOwnProperty('rank')) {
+                        if (user.data().hasOwnProperty('rank')) {
                             await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update('rank', rank);
                         } else {
                             await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).set({ 'rank': rank }, { merge: true });
@@ -157,11 +159,13 @@ exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.s
     async function resetRanking(project) {
         var users = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').get();
         users.docs.forEach(async(user) => {
-            await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
-                'rank': null
-            }, {
-                merge: true
-            });
+            if (user.data().hasOwnProperty('rank')) {
+                await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
+                    'rank': null
+                }, {
+                    merge: true
+                });
+            }
         });
     }
 
@@ -180,7 +184,7 @@ exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.s
                 baseRate = baseUser.docs[baseUser.docs.length - 1].data().averageRate ? baseUser.docs[baseUser.docs.length - 1].data().averageRate : 0;
                 const rankTieUsers = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').where('averageRate', '==', baseRate).get();
                 rankTieUsers.forEach(async(user) => {
-                    if (user.hasOwnProperty('rank')) {
+                    if (user.data().hasOwnProperty('rank')) {
                         await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update('rank', rank);
                     } else {
                         await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).set({ 'rank': rank }, { merge: true });
