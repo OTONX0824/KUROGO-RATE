@@ -9,14 +9,15 @@ admin.initializeApp();
 exports.secontTest = functions.region('asia-northeast1').firestore
     .document('test/{testId}')
     .onCreate(async(_, __) => {
-
         console.log('----------------start function--------------------')
 
 
         const allProject = await admin.firestore().collection('project').get();
         allProject.docs.forEach(async(project) => {
-            await ratingInProject(project).then((_) => {
-                makeRanking(project);
+            await ratingInProject(project).then(async(_) => {
+                await resetRanking(project).then(async(_) => {
+                    await makeRanking(project);
+                });
             });
         })
 
@@ -59,6 +60,17 @@ exports.secontTest = functions.region('asia-northeast1').firestore
             });
         }
 
+        async function resetRanking(project) {
+            var users = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').get();
+            users.docs.forEach(async(user) => {
+                await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
+                    'rank': null
+                }, {
+                    merge: true
+                });
+            });
+        }
+
 
         async function makeRanking(project) {
             let baseRate;
@@ -88,8 +100,6 @@ exports.secontTest = functions.region('asia-northeast1').firestore
 
         }
 
-        console.log('----------------end function--------------------')
-
     });
 
 exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.schedule('every 24 hours').onRun(async(_) => {
@@ -98,8 +108,10 @@ exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.s
 
     const allProject = await admin.firestore().collection('project').get();
     allProject.docs.forEach(async(project) => {
-        await ratingInProject(project).then((_) => {
-            makeRanking(project);
+        await ratingInProject(project).then(async(_) => {
+            await resetRanking(project).then(async(_) => {
+                await makeRanking(project);
+            });
         });
     })
 
@@ -142,6 +154,17 @@ exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.s
         });
     }
 
+    async function resetRanking(project) {
+        var users = await admin.firestore().collection('project').doc(project.id).collection('JoinUser').get();
+        users.docs.forEach(async(user) => {
+            await admin.firestore().collection('project').doc(project.id).collection('JoinUser').doc(user.id).update({
+                'rank': null
+            }, {
+                merge: true
+            });
+        });
+    }
+
 
     async function makeRanking(project) {
         let baseRate;
@@ -171,5 +194,5 @@ exports.everyProjectRankingUpdate = functions.region('asia-northeast1').pubsub.s
 
     }
 
-    console.log('----------------end function--------------------')
+
 });
