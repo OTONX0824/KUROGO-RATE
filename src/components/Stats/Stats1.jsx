@@ -43,6 +43,8 @@ export const Stats1 = () => {
   const [Rate3, setRate3] = useState();
   const [Rate4, setRate4] = useState();
   const [Rate5, setRate5] = useState();
+  //ランクのステート
+  const [Rank, setRank] = useState();
 
   //参加者数のステート
   const [NumOfJoinUser, setNumOfJoinUser] = useState();
@@ -74,12 +76,12 @@ export const Stats1 = () => {
       setNumOfJoinUser(data.docs.length);
     });
     //YouTube，アーティスト名,曲名の割り出し
-    getDoc(YTRef).then((docsnap) => {
-      const YTID = docsnap.data().YouTubeID;
+    getDoc(YTRef).then((docSnap) => {
+      const YTID = docSnap.data().YouTubeID;
       setYouTubeID(YTID);
-      const getAname = docsnap.data().ArtistName;
+      const getAname = docSnap.data().ArtistName;
       setAname(getAname);
-      const getSname = docsnap.data().SongName;
+      const getSname = docSnap.data().SongName;
       setSname(getSname);
     });
     //コメント及びレートを降順に取得→円グラフとコメント欄に反映
@@ -147,6 +149,8 @@ export const Stats1 = () => {
     getDoc(AverageAndRankingRef).then((docSnap) => {
       const Averages = docSnap.data().averageRate;
       setAverageRate(Averages.toFixed(1));
+      const RANK = docSnap.data().rank;
+      setRank(RANK);
     });
   }, []);
   //円グラフ用関数等
@@ -258,7 +262,7 @@ export const Stats1 = () => {
                   css={{ width: "300px", height: "150px", marginLeft: "-50px" }}
                 >
                   <h2>
-                    第<span style={{ color: "red" }}>１</span>位
+                    第 <span style={{ color: "red" }}>{Rank}</span> 位
                   </h2>
                 </Button>
               </div>

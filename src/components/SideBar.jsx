@@ -1,6 +1,16 @@
 import { Link } from "@nextui-org/react";
+import { useEffect, useState, useContext } from "react";
+import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
+import { doc } from "firebase/firestore";
+import { Ycontext } from "./context/Ycontext";
 
 export const SideBar = () => {
+  /*const { db } = useContext(Ycontext);
+  const projectRef = doc(db, `project`);
+
+  /*useEffect(() => {
+    getDocs(projectRef).then((data) => {});
+  }, []);*/
   return (
     <div>
       <div
@@ -24,24 +34,9 @@ export const SideBar = () => {
           <Link href="#" icon>
             <h3 style={{ color: "white" }}>
               新プロジェクト
-              <br />「<span style={{ color: "red" }}>スーパー超</span>
-              」始動！
-            </h3>
-          </Link>
-          <h5>22/4/14</h5>
-          <Link href="#" icon>
-            <h3 style={{ color: "white" }}>
-              新プロジェクト
-              <br />「<span style={{ color: "red" }}>YonJUU</span>
-              」始動！
-            </h3>
-          </Link>
-          <h5>22/3/14</h5>
-          <Link href="#" icon>
-            <h3 style={{ color: "white" }}>
-              新プロジェクト
-              <br />「<span style={{ color: "red" }}>君だよ！</span>
-              」始動！
+              <br />「<span style={{ color: "red" }}>歌モノNo.1選手権</span>
+              」<br />
+              始動！
             </h3>
           </Link>
         </div>
