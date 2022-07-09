@@ -8,8 +8,9 @@ import { useContext, useEffect } from "react";
 import { Ycontext } from "./context/Ycontext";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer";
-import { ref, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL, list } from "firebase/storage";
 import { useState } from "react";
+import { SampleComponet } from "../sample/SampleComponet";
 
 export const Home = () => {
   const { Background, storage, db } = useContext(Ycontext);
@@ -21,6 +22,8 @@ export const Home = () => {
   const [HomeImage, setHomeImage] = useState();
   //プロジェクトの小出しイメージのステート管理
   const [ProjectImage1, setProjectImage1] = useState();
+
+  const lists = [1,2,3,4,5];
 
   useEffect(() => {
     //ホームイメージのダウンロード
@@ -205,6 +208,11 @@ export const Home = () => {
                   </div>
                 </div>
               </Card>
+              {
+                lists.map((number)=>{
+                  return SampleComponet({title:`title${number}`,subtitle:`subtitle${number}`})
+                })
+              }
               <Spacer y={2} />
             </div>
           </div>
