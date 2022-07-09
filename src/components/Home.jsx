@@ -8,7 +8,7 @@ import { useContext, useEffect } from "react";
 import { Ycontext } from "./context/Ycontext";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer";
-import { ref, getDownloadURL, list } from "firebase/storage";
+import { ref, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import { SampleComponet } from "../sample/SampleComponet";
 
