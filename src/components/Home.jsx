@@ -22,20 +22,6 @@ export const Home = () => {
   const [projectDocs, setProjectDocs] = useState();
   const [isInitProjectData, setisInitProjectData] = useState(false);
 
-  /*//タイトルのステート
-  const [Title1, setTitle1] = useState();
-
-  //ディスクリプションのステート
-  const [Description11, setDescription11] = useState();
-  const [Description22, setDescription22] = useState();
-
-  //参加資格ステート
-  const [EntryQualification, setEntryQualification] = useState();
-  //参加条件ステート
-  const [EntryTerms, setEntryTerms] = useState();
-  //デッドラインステート
-  const [Deadline, setDeadline] = useState();*/
-
   //useNavigateの設定
   const Navi = useNavigate();
 
@@ -57,18 +43,6 @@ export const Home = () => {
       setisInitProjectData(true);
     });
   }, []);
-  const DownloadShortImage = () => {
-    for (let i = 0; i < projectDocs.length; i++) {
-      getDownloadURL(
-        ref(
-          storage,
-          `gs://kurogo-f196b.appspot.com/Projects/project${i}/short/sample1.jpg`
-        )
-      ).then((url) => {
-        setProjectImage(url);
-      });
-    }
-  };
 
   const ProjectList = () => {
     let List = [];
