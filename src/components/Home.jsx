@@ -10,9 +10,27 @@ import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
+import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 
 export const Home = () => {
   const { Background, storage, db } = useContext(Ycontext);
+
+  //プロジェクトのディスクリプション用のパス
+  const projectRef = doc(db, `project/project1`);
+  //タイトルのステート
+  const [Title1, setTitle1] = useState();
+
+  //ディスクリプションのステート
+  const [Description11, setDescription11] = useState();
+  const [Description22, setDescription22] = useState();
+
+  //参加資格ステート
+  const [EntryQualification, setEntryQualification] = useState();
+  //参加条件ステート
+  const [EntryTerms, setEntryTerms] = useState();
+  //デッドラインステート
+  const [Deadline, setDeadline] = useState();
 
   //useNavigateの設定
   const Navi = useNavigate();
@@ -33,10 +51,24 @@ export const Home = () => {
     getDownloadURL(
       ref(
         storage,
-        "gs://kurogo-f196b.appspot.com/Projects/project1/short/sample1.jpg"
+        `gs://kurogo-f196b.appspot.com/Projects/project1/short/sample1.jpg`
       )
     ).then((url) => {
       setProjectImage1(url);
+    });
+    getDoc(projectRef).then((docSnap) => {
+      const Title11 = docSnap.data().FirstTitle;
+      setTitle1(Title11);
+      const Description111 = docSnap.data().Description1;
+      setDescription11(Description111);
+      const Description222 = docSnap.data().Description2;
+      setDescription22(Description222);
+      const EntryQualification11 = docSnap.data().EntryQualification;
+      setEntryQualification(EntryQualification11);
+      const EntryTerms11 = docSnap.data().EntryTerms;
+      setEntryTerms(EntryTerms11);
+      const Deadline1 = docSnap.data().DeadLine;
+      setDeadline(Deadline1);
     });
   }, []);
   return (
@@ -143,7 +175,7 @@ export const Home = () => {
                         color="#ff4ecd"
                         weight="bold"
                       >
-                        ＜＜コラボ限定！圧倒的な楽曲を作ろう！＞＞
+                        ＜＜{Title1}＞＞
                       </Text>
                       <Spacer y={1} />
                     </div>
@@ -157,7 +189,7 @@ export const Home = () => {
                         color="white"
                         weight="bold"
                       >
-                        歌い手+ボカロPコラボ企画始動！作曲家/歌手に分かれて一曲制作しよう！
+                        {Description11}
                       </Text>
                       <Text
                         h1
@@ -168,9 +200,7 @@ export const Home = () => {
                         color="white"
                         weight="bold"
                       >
-                        優勝アーティストには
-                        <span style={{ color: "red" }}>豪華特典</span>
-                        がついてくる！
+                        {Description22}
                       </Text>
                       <Spacer y={1} />
                     </div>
@@ -187,11 +217,13 @@ export const Home = () => {
                         weight="bold"
                       >
                         参加要件：
-                        <span style={{ color: "red" }}>二人以上の合作作品</span>
+                        <span style={{ color: "red" }}>
+                          {EntryQualification}
+                        </span>
                       </Text>
                     </div>
                   </div>
-                  <div style={{ marginTop: "150px", marginLeft: "-100px" }}>
+                  <div style={{ marginTop: "170px", marginLeft: "-100px" }}>
                     <Button
                       bordered
                       color="gradient"
