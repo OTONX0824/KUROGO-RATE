@@ -11,13 +11,13 @@ import { Footer } from "./Footer";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
-import { doc } from "firebase/firestore";
 
 export const Home = () => {
   const { Background, storage, db } = useContext(Ycontext);
 
   //プロジェクトのディスクリプション用のパス
-  const projectRef = doc(db, `project/project1`);
+  const projectRef =collection(db, `project`);
+
   //タイトルのステート
   const [Title1, setTitle1] = useState();
 
@@ -40,6 +40,20 @@ export const Home = () => {
   //プロジェクトの小出しイメージのステート管理
   const [ProjectImage1, setProjectImage1] = useState();
 
+  const [projectDocs,setProjectDocs] = useState();
+  const [isInitProjectData,setisInitProjectData] = useState(false);
+
+  const projects = function(){
+    var lists = [];
+   if(isInitProjectData){
+     for(let i =0;i<projectDocs.length;i++){
+      const doc = projectDocs[i].data();
+      lists.push(<h1>{doc.FirstTitle}</h1>);
+     }
+     return  <ul>{lists}</ul>;
+   } 
+ }
+
   useEffect(() => {
     //ホームイメージのダウンロード
     getDownloadURL(
@@ -56,19 +70,21 @@ export const Home = () => {
     ).then((url) => {
       setProjectImage1(url);
     });
-    getDoc(projectRef).then((docSnap) => {
-      const Title11 = docSnap.data().FirstTitle;
-      setTitle1(Title11);
-      const Description111 = docSnap.data().Description1;
-      setDescription11(Description111);
-      const Description222 = docSnap.data().Description2;
-      setDescription22(Description222);
-      const EntryQualification11 = docSnap.data().EntryQualification;
-      setEntryQualification(EntryQualification11);
-      const EntryTerms11 = docSnap.data().EntryTerms;
-      setEntryTerms(EntryTerms11);
-      const Deadline1 = docSnap.data().DeadLine;
-      setDeadline(Deadline1);
+    getDocs(projectRef).then((data) => {
+      setProjectDocs(data.docs);
+      setisInitProjectData(true);
+      // const Title11 = docSnap.data().FirstTitle;
+      // setTitle1(Title11);
+      // const Description111 = docSnap.data().Description1;
+      // setDescription11(Description111);
+      // const Description222 = docSnap.data().Description2;
+      // setDescription22(Description222);
+      // const EntryQualification11 = docSnap.data().EntryQualification;
+      // setEntryQualification(EntryQualification11);
+      // const EntryTerms11 = docSnap.data().EntryTerms;
+      // setEntryTerms(EntryTerms11);
+      // const Deadline1 = docSnap.data().DeadLine;
+      // setDeadline(Deadline1);
     });
   }, []);
   return (
@@ -237,6 +253,7 @@ export const Home = () => {
                   </div>
                 </div>
               </Card>
+              {projects()}
               <Spacer y={2} />
             </div>
           </div>
