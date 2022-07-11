@@ -19,7 +19,9 @@ export const Home = () => {
   //プロジェクトのディスクリプション用のパス
   const projectRef = collection(db, `project`);
 
+  //プロジェクトのドキュメントを一括でステート保持
   const [projectDocs, setProjectDocs] = useState();
+  //プロジェクトが入ったかどうかの正誤ステート
   const [isInitProjectData, setisInitProjectData] = useState(false);
 
   //useNavigateの設定
