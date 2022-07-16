@@ -79,7 +79,7 @@ export const Home = () => {
                 boxShadow: "4px 4px 20px",
               }}
               onClick={() => {
-                Navi("/Introduce");
+                Navi(`/Introduce`, { state: doc });
               }}
             >
               <div style={{ display: "flex" }}>
@@ -162,7 +162,7 @@ export const Home = () => {
                     color="gradient"
                     auto
                     onClick={() => {
-                      Navi(`/Introduce`);
+                      Navi(`/Introduce`, { state: doc });
                     }}
                   >
                     プロジェクト詳細へ

@@ -118,7 +118,6 @@ export const Introduce1 = () => {
     emailjs.init("hZ9xNJbis0mKwGfhp");
     const emailjsServiceId = "KUROGOMAIL";
     const emailjsTemplateId = "KUROGOTEMPLATE";
-    //const emailjsPublicKey = "hZ9xNJbis0mKwGfhp";
     const templateParams = {
       toEmail: user.email,
       to_name: Aname,

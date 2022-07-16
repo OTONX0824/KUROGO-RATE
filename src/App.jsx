@@ -1,6 +1,6 @@
 import { Home } from "./components/Home";
 import { Mypage } from "./components/Mypage";
-import { Introduce1 } from "./components/Introduce/Introduce1";
+import { Introduce } from "./components/Introduce/Introduce";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Stats1 } from "./components/Stats/Stats1";
 import { FAQ } from "./components/FAQ";
@@ -30,7 +30,7 @@ function App() {
             <Route path="/Rate" element={<Rate />}></Route>
             <Route path="/Home" element={<Home />}></Route>
 
-            <Route path="/Introduce" element={<Introduce1 />}></Route>
+            <Route path="/Introduce" element={<Introduce />}></Route>
             <Route
               path="/Mypage"
               element={

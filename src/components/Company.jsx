@@ -1,5 +1,5 @@
 import { Head } from "./Head";
-import { NextUIProvider, Collapse } from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import { useContext } from "react";
 import { Ycontext } from "./context/Ycontext";
 import { Footer } from "./Footer";
