@@ -83,7 +83,6 @@ export const Mypage = () => {
     const reader = new FileReader();
 			reader.readAsDataURL(fileData);
 			reader.addEventListener("load", (e) => {
-				console.log(e);
 				const loadedFile = e.target.result;
         setForModalDisplay(loadedFile);
 			});
