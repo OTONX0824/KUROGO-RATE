@@ -11,6 +11,7 @@ import { Support } from "./components/Support";
 import { Company } from "./components/Company";
 import { Policy } from "./components/Policy";
 import { Completion } from "./components/Completion";
+import { useEffect, useState } from "react";
 
 //Login
 import SignUp from "./components/SignUp";
@@ -28,6 +29,7 @@ function App() {
 
             <Route path="/Rate" element={<Rate />}></Route>
             <Route path="/Home" element={<Home />}></Route>
+
             <Route path="/Introduce" element={<Introduce1 />}></Route>
             <Route
               path="/Mypage"

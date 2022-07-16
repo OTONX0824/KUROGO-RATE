@@ -162,7 +162,7 @@ export const Home = () => {
                     color="gradient"
                     auto
                     onClick={() => {
-                      Navi("/Introduce");
+                      Navi(`/Introduce`);
                     }}
                   >
                     プロジェクト詳細へ
