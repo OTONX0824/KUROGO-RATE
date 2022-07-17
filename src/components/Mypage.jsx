@@ -70,6 +70,7 @@ export const Mypage = () => {
   };
   //入力用画像ステート
   const [UserImage, setUI] = useState();
+
   //モーダル表示用画像ステート
   const [ForModalDisplay, setForModalDisplay] = useState();
 
@@ -79,8 +80,14 @@ export const Mypage = () => {
   const [ProjectImage1, setProjectImage1] = useState();
   //ユーザー画像ステート変更と，モーダル表示用画像の変更
   const ChangeUserImage = (event) => {
+    const fileData = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    reader.addEventListener("load", (e) => {
+      const loadedFile = e.target.result;
+      setForModalDisplay(loadedFile);
+    });
     setUI(event.target.files[0]);
-    setForModalDisplay(event.target.files[0]);
   };
   //アーティスト画像参照
   const ArtistImageRef = ref(storage, `ArtistImage/${user.uid}`);
@@ -109,7 +116,7 @@ export const Mypage = () => {
       console.log("インプット値が空白です");
     }
 
-    Navigate("/Introduce");
+    Navigate("/Home");
   };
   useEffect(() => {
     //アーティストイメージのダウンロードと表示

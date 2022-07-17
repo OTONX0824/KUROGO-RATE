@@ -137,10 +137,13 @@ export const Introduce = () => {
       });
   };
   //プロジェクトのディスクリプション用のパス
-  const projectRef = doc(db, `project/project1`);
+  const projectRef = doc(db, `project/project${location.state.ProjectNumber}`);
 
   //楽曲数確認のためのパス
-  const searchRef = collection(db, `project/project1/Songs`);
+  const searchRef = collection(
+    db,
+    `project/project${location.state.ProjectNumber}/Songs`
+  );
 
   //楽曲を読み込み時に把握し，イントロの画像やタイトル等を反映させる
   useEffect(() => {
@@ -171,7 +174,10 @@ export const Introduce = () => {
     ) {
       setload(true);
       //プロジェクトのユーザーのパス
-      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+      const rateRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/JoinUser/${user.uid}`
+      );
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -179,7 +185,10 @@ export const Introduce = () => {
         YouTubeID: YoutubeLink,
       });
       //プロジェクトのSongsにいれるためのパス
-      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
+      const songRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/Songs/${user.uid}`
+      );
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -200,7 +209,10 @@ export const Introduce = () => {
     ) {
       setload(true);
       //プロジェクトのユーザーのパス
-      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+      const rateRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/JoinUser/${user.uid}`
+      );
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -208,7 +220,10 @@ export const Introduce = () => {
         YouTubeID: YoutubeLink,
       });
       //プロジェクトのSongsにいれるためのパス
-      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
+      const songRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/Songs/${user.uid}`
+      );
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
