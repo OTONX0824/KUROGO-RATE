@@ -398,7 +398,7 @@ export const Mypage = () => {
                     <div style={{ marginLeft: "15px" }}>
                       <Button
                         onClick={() => {
-                          Navigate("/Stats1");
+                          Navigate("/Stats");
                         }}
                         bordered
                         color="gradient"

@@ -1,12 +1,12 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { Text, Card, Button } from "@nextui-org/react";
-import { Head } from "../Head";
+import { Head } from "./Head";
 import { useContext, useEffect, useState } from "react";
-import { Ycontext } from "../context/Ycontext";
+import { Ycontext } from "./context/Ycontext";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { doc } from "firebase/firestore";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "./context/AuthContext";
 import YouTube from "react-youtube";
 import {
   collection,
@@ -16,7 +16,7 @@ import {
   query,
 } from "firebase/firestore";
 
-export const Stats1 = () => {
+export const Stats = () => {
   const { db } = useContext(Ycontext);
   const { Background } = useContext(Ycontext);
   const { user } = useAuthContext();

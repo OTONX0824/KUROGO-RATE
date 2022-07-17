@@ -1,8 +1,8 @@
 import { Home } from "./components/Home";
 import { Mypage } from "./components/Mypage";
-import { Introduce } from "./components/Introduce/Introduce";
+import { Introduce } from "./components/Introduce";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Stats1 } from "./components/Stats/Stats1";
+import { Stats } from "./components/Stats";
 import { FAQ } from "./components/FAQ";
 import { Rate } from "./components/Rate";
 import { First } from "./components/First";
@@ -40,10 +40,10 @@ function App() {
               }
             ></Route>
             <Route
-              path="/Stats1"
+              path="/Stats"
               element={
                 <PrivateRoute>
-                  <Stats1 />
+                  <Stats />
                 </PrivateRoute>
               }
             ></Route>

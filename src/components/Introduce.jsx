@@ -1,21 +1,23 @@
 import { Spacer } from "@nextui-org/react";
 import { Input, Link, Modal } from "@nextui-org/react";
 import { NextUIProvider, Button, Text, Checkbox } from "@nextui-org/react";
-import { Head } from "../Head";
-import { useNavigate } from "react-router-dom";
+import { Head } from "./Head";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Footer } from "../Footer";
-import { useAuthContext } from "../context/AuthContext";
-import { auth } from "../../firebase";
+import { Footer } from "./Footer";
+import { useAuthContext } from "./context/AuthContext";
+import { auth } from "../firebase";
 import { useContext } from "react";
-import { Ycontext } from "../context/Ycontext";
+import { Ycontext } from "./context/Ycontext";
 import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
 import { useEffect } from "react";
 import { ref, getDownloadURL } from "firebase/storage";
 
-export const Introduce1 = () => {
+export const Introduce = () => {
+  const location = useLocation();
+
   //背景等グローバルステート
   const { Background, storage } = useContext(Ycontext);
 
@@ -135,26 +137,14 @@ export const Introduce1 = () => {
       });
   };
   //プロジェクトのディスクリプション用のパス
-  const projectRef = doc(db, `project/project1`);
-  //タイトルのステート
-  const [Title1, setTitle1] = useState();
-  const [Title2, setTitle2] = useState();
-  //ディスクリプションのステート
-  const [Description11, setDescription11] = useState();
-  const [Description22, setDescription22] = useState();
-  //賞品説明のステート
-  const [Prize1, setPrize1] = useState();
-  const [Prize2, setPrize2] = useState();
-  const [Prize3, setPrize3] = useState();
-  //参加資格ステート
-  const [EntryQualification, setEntryQualification] = useState();
-  //参加条件ステート
-  const [EntryTerms, setEntryTerms] = useState();
-  //デッドラインステート
-  const [Deadline, setDeadline] = useState();
+  const projectRef = doc(db, `project/project${location.state.ProjectNumber}`);
 
   //楽曲数確認のためのパス
-  const searchRef = collection(db, `project/project1/Songs`);
+  const searchRef = collection(
+    db,
+    `project/project${location.state.ProjectNumber}/Songs`
+  );
+
   //楽曲を読み込み時に把握し，イントロの画像やタイトル等を反映させる
   useEffect(() => {
     getDocs(searchRef).then((data) => {
@@ -165,32 +155,10 @@ export const Introduce1 = () => {
     getDownloadURL(
       ref(
         storage,
-        "gs://kurogo-f196b.appspot.com/Projects/project1/intro/intro.png"
+        `gs://kurogo-f196b.appspot.com/Projects/project${location.state.ProjectNumber}/intro/intro.jpg`
       )
     ).then((url) => {
       setIntroImage(url);
-    });
-    getDoc(projectRef).then((docSnap) => {
-      const Title11 = docSnap.data().FirstTitle;
-      setTitle1(Title11);
-      const Title22 = docSnap.data().SecondTitle;
-      setTitle2(Title22);
-      const Description111 = docSnap.data().Description1;
-      setDescription11(Description111);
-      const Description222 = docSnap.data().Description2;
-      setDescription22(Description222);
-      const Prize11 = docSnap.data().Prize1st;
-      setPrize1(Prize11);
-      const Prize22 = docSnap.data().Prize2nd;
-      setPrize2(Prize22);
-      const Prize33 = docSnap.data().Prize3rd;
-      setPrize3(Prize33);
-      const EntryQualification11 = docSnap.data().EntryQualification;
-      setEntryQualification(EntryQualification11);
-      const EntryTerms11 = docSnap.data().EntryTerms;
-      setEntryTerms(EntryTerms11);
-      const Deadline1 = docSnap.data().DeadLine;
-      setDeadline(Deadline1);
     });
   }, []);
   const AllCheck = () => {
@@ -206,7 +174,10 @@ export const Introduce1 = () => {
     ) {
       setload(true);
       //プロジェクトのユーザーのパス
-      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+      const rateRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/JoinUser/${user.uid}`
+      );
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -214,7 +185,10 @@ export const Introduce1 = () => {
         YouTubeID: YoutubeLink,
       });
       //プロジェクトのSongsにいれるためのパス
-      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
+      const songRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/Songs/${user.uid}`
+      );
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -235,7 +209,10 @@ export const Introduce1 = () => {
     ) {
       setload(true);
       //プロジェクトのユーザーのパス
-      const rateRef = doc(db, `/project/project1/JoinUser/${user.uid}`);
+      const rateRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/JoinUser/${user.uid}`
+      );
       setDoc(rateRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -243,7 +220,10 @@ export const Introduce1 = () => {
         YouTubeID: YoutubeLink,
       });
       //プロジェクトのSongsにいれるためのパス
-      const songRef = doc(db, `/project/project1/Songs/${user.uid}`);
+      const songRef = doc(
+        db,
+        `/project/project${location.state.ProjectNumber}/Songs/${user.uid}`
+      );
       setDoc(songRef, {
         UID: user.uid,
         ArtistName: Aname,
@@ -530,7 +510,7 @@ export const Introduce1 = () => {
                 color="#ff4ecd"
                 weight="bold"
               >
-                {Title1}
+                {location.state.FirstTitle}
               </Text>
               <Text
                 h2
@@ -542,7 +522,7 @@ export const Introduce1 = () => {
                 color="white"
                 weight="bold"
               >
-                {Title2}
+                {location.state.SecondTitle}
               </Text>
             </div>
             <div style={{ marginTop: "80px", marginLeft: "80px" }}>
@@ -566,7 +546,7 @@ export const Introduce1 = () => {
                 color="white"
                 weight="bold"
               >
-                参加期間　{Deadline}
+                参加期間　{location.state.DeadLine}
               </Text>
             </div>
           </div>
@@ -600,9 +580,9 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              {Description11}
+              {location.state.Description1}
               <br />
-              {Description22}
+              {location.state.Description2}
             </Text>
           </div>
           <div style={{ marginTop: "40px" }}>
@@ -628,7 +608,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              1st　{Prize1}
+              1st　{location.state.Prize1st}
             </Text>
             <Text
               h1
@@ -640,7 +620,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              2nd　{Prize2}
+              2nd　{location.state.Prize2nd}
             </Text>
             <Text
               h1
@@ -652,7 +632,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              3rd　{Prize3}
+              3rd　{location.state.Prize3rd}
             </Text>
           </div>
           <div style={{ marginTop: "50px" }}>
@@ -678,7 +658,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              {EntryQualification}
+              {location.state.EntryQualification}
             </Text>
             <Text
               h1
@@ -702,7 +682,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              {EntryTerms}
+              {location.state.EntryTerms}
             </Text>
           </div>
           <div style={{ marginTop: "50px" }}>
@@ -728,7 +708,7 @@ export const Introduce1 = () => {
               color="white"
               weight="bold"
             >
-              {Deadline} 　参加＆評価期間
+              {location.state.DeadLine}
             </Text>
           </div>
           <div style={{ marginTop: "20px", marginLeft: "400px" }}>
