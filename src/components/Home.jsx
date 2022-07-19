@@ -9,9 +9,7 @@ import { Ycontext } from "./context/Ycontext";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer";
 import { ref, getDownloadURL } from "firebase/storage";
-
-import { collection, setDoc, getDoc, getDocs } from "firebase/firestore";
-import { doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export const Home = () => {
   const { Background, storage, db } = useContext(Ycontext);
@@ -48,7 +46,7 @@ export const Home = () => {
 
   const ProjectList = () => {
     let List = [];
-    let ImageList = [];
+    let MiniImages = [];
     if (isInitProjectData) {
       for (let i = 0; i < projectDocs.length; i++) {
         getDownloadURL(
@@ -59,11 +57,11 @@ export const Home = () => {
             }/short/sample1.jpg`
           )
         ).then((url) => {
-          ImageList.push(url);
-          setProjectImage(url);
+          let MiniImageURL = url;
+          let MiniImages = [MiniImageURL];
         });
         const doc = projectDocs[i].data();
-        const Images = ImageList[i];
+        let MiniImage = MiniImages[i];
 
         List.push(
           <>
@@ -92,7 +90,7 @@ export const Home = () => {
                   <div style={{ width: "150px", height: "150px" }}>
                     <img
                       style={{ width: "150px", height: "150px" }}
-                      src={Images}
+                      src={MiniImage}
                     />
                   </div>
                 </div>
