@@ -16,15 +16,12 @@ export const Home = () => {
 
   //プロジェクトのディスクリプション用のパス
   const projectRef = collection(db, `project`);
-
   //プロジェクトのドキュメントを一括でステート保持
   const [projectDocs, setProjectDocs] = useState();
   //プロジェクトが入ったかどうかの正誤ステート
   const [isInitProjectData, setisInitProjectData] = useState(false);
-
   //useNavigateの設定
   const Navi = useNavigate();
-
   //Homeの画像をステート管理→firebaseから持ってくる
   const [HomeImage, setHomeImage] = useState();
   //プロジェクトの小出しイメージのステート管理
@@ -46,7 +43,6 @@ export const Home = () => {
 
   const ProjectList = () => {
     let List = [];
-
     if (isInitProjectData) {
       for (let i = 0; i < projectDocs.length; i++) {
         let b = i + 1;
