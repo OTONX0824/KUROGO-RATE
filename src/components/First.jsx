@@ -42,6 +42,7 @@ export const First = () => {
                 height: "auto",
               }}
               src={NetWorkImageForLP}
+              alt="images"
             />
           </div>
           <div style={{ marginLeft: "100px", marginTop: "0px" }}>

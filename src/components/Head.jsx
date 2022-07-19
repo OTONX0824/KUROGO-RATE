@@ -122,6 +122,7 @@ export const Head = () => {
                   marginLeft: "1150px",
                   borderRadius: "40px",
                 }}
+                alt="images"
               />
             ) : (
               <img
@@ -136,6 +137,7 @@ export const Head = () => {
                   marginLeft: "1150px",
                   borderRadius: "40px",
                 }}
+                alt="images"
               />
             )}
 

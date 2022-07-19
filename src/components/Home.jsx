@@ -28,7 +28,7 @@ export const Home = () => {
   //Homeの画像をステート管理→firebaseから持ってくる
   const [HomeImage, setHomeImage] = useState();
   //プロジェクトの小出しイメージのステート管理
-  const [ProjectImages, setProjectImage] = useState();
+  const [ProjectImages, setProjectImage] = useState([]);
 
   useEffect(() => {
     //ホームイメージのダウンロード
@@ -46,23 +46,20 @@ export const Home = () => {
 
   const ProjectList = () => {
     let List = [];
-    let MiniImages = [];
+
     if (isInitProjectData) {
       for (let i = 0; i < projectDocs.length; i++) {
+        let b = i + 1;
         getDownloadURL(
           ref(
             storage,
-            `gs://kurogo-f196b.appspot.com/Projects/project${
-              i + 1
-            }/short/sample1.jpg`
+            `gs://kurogo-f196b.appspot.com/Projects/project${b}/short/sample1.jpg`
           )
         ).then((url) => {
-          let MiniImageURL = url;
-          let MiniImages = [MiniImageURL];
+          setProjectImage(url);
         });
         const doc = projectDocs[i].data();
-        let MiniImage = MiniImages[i];
-
+        let MiniImage = ProjectImages[i];
         List.push(
           <>
             <Card
@@ -91,6 +88,7 @@ export const Home = () => {
                     <img
                       style={{ width: "150px", height: "150px" }}
                       src={MiniImage}
+                      alt="images"
                     />
                   </div>
                 </div>
@@ -200,6 +198,7 @@ export const Home = () => {
                     width: "1000px",
                   }}
                   src={HomeImage}
+                  alt="images"
                 />
                 <Spacer y={1} />
               </div>
