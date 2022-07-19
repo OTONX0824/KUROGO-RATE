@@ -20,6 +20,7 @@ export const Home = () => {
   const [projectDocs, setProjectDocs] = useState();
   //プロジェクトが入ったかどうかの正誤ステート
   const [isInitProjectData, setisInitProjectData] = useState(false);
+  const [isInitBuildCard, setisInitBuildCard] = useState(false);
   //useNavigateの設定
   const Navi = useNavigate();
   //Homeの画像をステート管理→firebaseから持ってくる
@@ -40,22 +41,31 @@ export const Home = () => {
       setisInitProjectData(true);
     });
   }, []);
+  
+  useEffect(()=>{
+    if(isInitProjectData){
+    for (let i = 0; i < projectDocs.length; i++) {
+      const doc = projectDocs[i].data();
+      const num = doc['ProjectNumber'];
+      getDownloadURL(
+        ref(
+          storage,
+          `gs://kurogo-f196b.appspot.com/Projects/project${num}/short/sample1.jpg`
+        )
+      ).then((url) => {
+        setProjectImage(ProjectImages=>[...ProjectImages,url]);
+      });
+    }}
+    setisInitBuildCard(true);
+  },[isInitProjectData])
 
   const ProjectList = () => {
     let List = [];
-    if (isInitProjectData) {
+    if (isInitProjectData&&isInitBuildCard) {
       for (let i = 0; i < projectDocs.length; i++) {
-        let b = i + 1;
-        getDownloadURL(
-          ref(
-            storage,
-            `gs://kurogo-f196b.appspot.com/Projects/project${b}/short/sample1.jpg`
-          )
-        ).then((url) => {
-          setProjectImage(url);
-        });
+        const num = i+1;
         const doc = projectDocs[i].data();
-        let MiniImage = ProjectImages[i];
+        let MiniImage = ProjectImages.filter(img=>img.includes(`project${num}`))[0];
         List.push(
           <>
             <Card
